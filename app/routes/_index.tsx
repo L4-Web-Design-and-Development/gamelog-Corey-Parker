@@ -1,3 +1,6 @@
+import { PrismaClient } from "@prisma/client";
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
@@ -7,10 +10,31 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function loader() {
+  const prisma = new PrismaClient();
+
+  const games = await prisma.game.findMany();
+
+  return json({ games });
+}
+
 export default function Index() {
+  const { games } = useLoaderData<typeof loader>();
+
+  console.log({ games });
+
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold">Hello, GameLogger!</h1>
+      <h1 className="text-4xl font-bold">
+        {[
+          <span key="1" className="border border-red-500 p-2 text-red-500">
+            Hello
+          </span>,
+          <span key="2" className="border border-green-500 p-2 text-green-500">
+            World!
+          </span>,
+        ]}
+      </h1>
     </div>
   );
 }
