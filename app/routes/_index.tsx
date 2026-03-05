@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
+import GameCard from "~/components/GameCard";
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,17 +23,16 @@ export default function Index() {
   const { games } = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div>
-        <h1 className="text-4xl font-bold">Hello, World!</h1>
-        {games.map((game) => (
-          <div key={game.id}>
-            <h2>
-              {game.title}: {game.price === 0 ? "Free" : `£${game.price}`}
-            </h2>
-          </div>
-        ))}
-      </div>
+    <div className="container mx-auto px-8 grid grid-cols-3 gap-8">
+      {games.map((game) => (
+        <div key={game.id}>
+          <GameCard
+            key={game.id}
+            title={game.title}
+            releaseDate={game.releaseDate}
+          />
+        </div>
+      ))}
     </div>
   );
 }
