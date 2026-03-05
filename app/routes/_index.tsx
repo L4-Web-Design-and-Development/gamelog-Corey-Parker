@@ -21,20 +21,18 @@ export async function loader() {
 export default function Index() {
   const { games } = useLoaderData<typeof loader>();
 
-  console.log({ games });
-
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold">
-        {[
-          <span key="1" className="border border-red-500 p-2 text-red-500">
-            Hello
-          </span>,
-          <span key="2" className="border border-green-500 p-2 text-green-500">
-            World!
-          </span>,
-        ]}
-      </h1>
+      <div>
+        <h1 className="text-4xl font-bold">Hello, World!</h1>
+        {games.map((game) => (
+          <div key={game.id}>
+            <h2>
+              {game.title}: {game.price === 0 ? "Free" : `£${game.price}`}
+            </h2>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
