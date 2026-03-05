@@ -2,12 +2,14 @@ interface GameCardProps {
   title: string;
   releaseDate: string;
   category: string;
+  imgUrl: string;
 }
 
 export default function GameCard({
   title,
   releaseDate,
   category,
+  imgUrl,
 }: GameCardProps) {
   const formattedDate = releaseDate.substring(0, 10);
 
@@ -15,8 +17,8 @@ export default function GameCard({
     <div className="flex flex-col gap-4">
       <div className="relative h-72 overflow-hidden">
         <img
-          src="app\assets\Png\Hornet.png"
-          alt="Game Cover"
+          src={imgUrl}
+          alt={`${title} cover`}
           className="w-full object-cover rounded-md"
         />
       </div>

@@ -19,6 +19,7 @@ export async function loader() {
       id: true,
       title: true,
       releaseDate: true,
+      imageUrl: true,
       category: {
         select: {
           title: true,
@@ -42,6 +43,9 @@ export default function Index() {
             title={game.title}
             releaseDate={game.releaseDate}
             category={game.category?.title || "Unknown"}
+            imgUrl={
+              game.imageUrl ? game.imageUrl : "app\\assets\\Png\\Hornet.png"
+            }
           />
         </div>
       ))}
