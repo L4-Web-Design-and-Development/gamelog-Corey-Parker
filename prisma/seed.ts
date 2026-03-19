@@ -10,6 +10,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2017-03-03"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/BOTW_li7js1.png",
     },
     {
       title: "The Witcher 3: Wild Hunt",
@@ -18,6 +20,8 @@ async function seed() {
       price: 39.99,
       rating: 4.8,
       releaseDate: new Date("2015-05-19"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/WWH_bpz2ju.jpg",
     },
     {
       title: "Red Dead Redemption 2",
@@ -25,6 +29,8 @@ async function seed() {
       price: 59.99,
       rating: 4.7,
       releaseDate: new Date("2018-10-26"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/RDR_q7h10l.jpg",
     },
     {
       title: "God of War",
@@ -32,6 +38,8 @@ async function seed() {
       price: 49.99,
       rating: 4.9,
       releaseDate: new Date("2018-04-20"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/GOW_a64aza.jpg",
     },
     {
       title: "Minecraft",
@@ -40,6 +48,8 @@ async function seed() {
       price: 26.95,
       rating: 4.8,
       releaseDate: new Date("2011-11-18"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/MC_vzgox2.png",
     },
     {
       title: "Fortnite",
@@ -48,6 +58,8 @@ async function seed() {
       price: 0.0,
       rating: 4.5,
       releaseDate: new Date("2017-07-25"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726128/FNITE_dbarxc.jpg",
     },
     {
       title: "Cyberpunk 2077",
@@ -55,6 +67,8 @@ async function seed() {
       price: 59.99,
       rating: 4.0,
       releaseDate: new Date("2020-12-10"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/CBP_rmhnt6.jpg",
     },
     {
       title: "Among Us",
@@ -63,6 +77,8 @@ async function seed() {
       price: 4.99,
       rating: 4.4,
       releaseDate: new Date("2018-06-15"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/AMOGUS_uyxxjy.jpg",
     },
     {
       title: "Animal Crossing: New Horizons",
@@ -71,6 +87,8 @@ async function seed() {
       price: 59.99,
       rating: 4.9,
       releaseDate: new Date("2020-03-20"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/ACNH_tl2k1z.jpg",
     },
     {
       title: "Hades",
@@ -79,6 +97,8 @@ async function seed() {
       price: 24.99,
       rating: 4.9,
       releaseDate: new Date("2020-09-17"),
+      imageUrl:
+        "https://res.cloudinary.com/doshqnbvv/image/upload/v1772726127/HADES_ahii5i.jpg",
     },
   ];
 
@@ -87,6 +107,79 @@ async function seed() {
   }
 
   console.log("Seed data created successfully");
+
+  console.log("👾 Games created successfully");
+
+  const categories = [
+    {
+      title: "Action",
+      description:
+        "Games that require quick reflexes and hand-eye coordination.",
+    },
+    {
+      title: "Adventure",
+      description: "Games that involve exploration and puzzle-solving.",
+    },
+    {
+      title: "RPG",
+      description: "Games that focus on character development and story.",
+    },
+    {
+      title: "Simulation",
+      description: "Games that simulate real-world activities or systems.",
+    },
+    {
+      title: "Strategy",
+      description: "Games that require strategic thinking and planning.",
+    },
+    {
+      title: "Puzzle",
+      description:
+        "Games that challenge players with logic and problem-solving.",
+    },
+    {
+      title: "Sports",
+      description: "Games that simulate sports or physical activities.",
+    },
+    {
+      title: "Multiplayer",
+      description: "Games that can be played with multiple players.",
+    },
+    {
+      title: "Indie",
+      description: "Games developed by independent studios or individuals.",
+    },
+    {
+      title: "Horror",
+      description: "Games that aim to scare or unsettle players.",
+    },
+  ];
+
+  for (const category of categories) {
+    await prisma.category.create({ data: category });
+  }
+
+  console.log("🎮 Categories created successfully");
+
+  console.log("🔗 Linking each game to a category");
+
+  // Fetch games from the database
+  const dbGames = await prisma.game.findMany();
+
+  // Fetch categories from the database
+  const dbCategories = await prisma.category.findMany();
+
+  // Link each game to a category
+  for (const game of dbGames) {
+    const category =
+      dbCategories[Math.floor(Math.random() * dbCategories.length)];
+    await prisma.game.update({
+      where: { id: game.id },
+      data: { categoryId: category.id },
+    });
+  }
+
+  console.log("🔗 Games and categories linked successfully");
 }
 
 seed()
