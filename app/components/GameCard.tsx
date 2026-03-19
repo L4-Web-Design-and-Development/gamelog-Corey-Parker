@@ -1,8 +1,11 @@
+import { Form } from "@remix-run/react";
+
 interface GameCardProps {
   title: string;
   releaseDate: string;
   category: string;
   imgUrl: string;
+  gameID: number;
 }
 
 export default function GameCard({
@@ -10,6 +13,7 @@ export default function GameCard({
   releaseDate,
   category,
   imgUrl,
+  gameID,
 }: GameCardProps) {
   const formattedDate = releaseDate.substring(0, 10);
 
@@ -33,6 +37,14 @@ export default function GameCard({
           </p>
         </div>
       </div>
+      <Form action={`/delete-game/${gameID}`} method="post">
+        <button
+          type="submit"
+          className="border-2 border-red-300 text-red-300 p-2 rounded-md transition hover:bg-red-50/10 w-full"
+        >
+          Delete
+        </button>
+      </Form>
     </div>
   );
 }
