@@ -18,7 +18,7 @@ export default function GameCard({
   const formattedDate = releaseDate.substring(0, 10);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 h-max">
       <div className="relative h-72 overflow-hidden">
         <img
           src={imgUrl}
@@ -45,7 +45,7 @@ export default function GameCard({
             </div>
           </div>
         </div>
-        <div className="space-y-8">
+        <div className="space-y-4">
           <Form action={`/delete-edit/${gameID}`} method="post">
             <button
               type="submit"
