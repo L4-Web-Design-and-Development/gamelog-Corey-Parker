@@ -22,7 +22,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div className="flex flex-col min-h-screen bg-gray-950 text-gray-50">
+        <div className="flex flex-col min-h-screen bg-custom-background text-gray-50">
           <div className="flex-1">
             <Outlet />
           </div>
