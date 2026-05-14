@@ -6,6 +6,7 @@ import GameCard from "~/components/GameCard";
 import TopBar from "~/components/TopBar";
 import BottomBar from "~/components/BottomBar";
 import LargeCard from "~/components/LargeCard";
+import defaultGameImage from "~/assets/Png/Hornet.png";
 
 export const meta: MetaFunction = () => {
   return [
@@ -39,8 +40,8 @@ export default function Index() {
 
   return (
     <div className="container mx-auto px-8 grid grid-cols-3 gap-8">
-      <TopBar></TopBar>
-      <LargeCard></LargeCard>
+      <TopBar />
+      <LargeCard />
       {games.map((game) => (
         <div key={game.id}>
           <GameCard
@@ -48,9 +49,7 @@ export default function Index() {
             title={game.title}
             releaseDate={game.releaseDate}
             category={game.category?.title || "Unknown"}
-            imgUrl={
-              game.imageUrl ? game.imageUrl : "app\\assets\\Png\\Hornet.png"
-            }
+            imgUrl={game.imageUrl ? game.imageUrl : defaultGameImage}
           />
         </div>
       ))}

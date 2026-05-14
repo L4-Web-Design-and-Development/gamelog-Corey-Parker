@@ -1,11 +1,11 @@
-import { Form } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 
 interface GameCardProps {
   title: string;
   releaseDate: string;
   category: string;
   imgUrl: string;
-  gameID: number;
+  gameID: string;
 }
 
 export default function GameCard({
@@ -46,14 +46,14 @@ export default function GameCard({
           </div>
         </div>
         <div className="space-y-4">
-          <Form action={`/delete-edit/${gameID}`} method="post">
+          <Link to={`/delete-edit/${gameID}`}>
             <button
               type="submit"
               className="border-2 border-green-300 text-green-300  pl-10 pr-10 rounded-md transition hover:bg-red-50/10 w-full"
             >
               Edit
             </button>
-          </Form>
+          </Link>
           <Form action={`/delete-game/${gameID}`} method="post">
             <button
               type="submit"
